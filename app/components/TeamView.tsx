@@ -11,36 +11,22 @@ type Agent = {
   status: string;
 };
 
-const statusLabels: Record<Language, Record<string, string>> = {
-  zh: {
-    active: "在线",
-    idle: "空闲",
-    offline: "离线",
-    busy: "忙碌",
-    online: "在线",
-    monitoring: "监控中"
-  },
-  en: {
-    active: "Active",
-    idle: "Idle",
-    offline: "Offline",
-    busy: "Busy",
-    online: "Online",
-    monitoring: "Monitoring"
-  }
+const statusLabels: Record<string, string> = {
+  active: "在线",
+  idle: "空闲",
+  offline: "离线",
+  busy: "忙碌",
+  online: "在线",
+  monitoring: "监控中"
 };
 
 const copy = {
-  zh: {
-    title: "团队"
-  },
-  en: {
-    title: "Team"
-  }
-} satisfies Record<Language, { title: string }>;
+  title: "团队"
+};
 
 function TeamPanel({ agents, language }: { agents: Agent[]; language: Language }) {
-  const t = copy[language];
+  void language;
+  const t = copy;
 
   return (
     <section className="frost rounded-2xl p-5 shadow-frost transition-colors duration-300">
@@ -51,7 +37,7 @@ function TeamPanel({ agents, language }: { agents: Agent[]; language: Language }
             <div className="mb-2 flex items-center justify-between">
               <h3 className="text-lg font-semibold text-ice-900">{agent.code}</h3>
               <span className="rounded-full bg-ice-100 px-2 py-1 text-xs font-medium text-ice-700">
-                {statusLabels[language][agent.status.toLowerCase()] ?? agent.status}
+                {statusLabels[agent.status.toLowerCase()] ?? agent.status}
               </span>
             </div>
             <p className="text-sm font-medium text-ice-700">{agent.role}</p>

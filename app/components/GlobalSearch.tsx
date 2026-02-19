@@ -43,54 +43,33 @@ type SearchResult = {
 const EMPTY_RESULT: SearchResult = { tasks: [], memories: [], cronJobs: [], total: 0 };
 
 const copy = {
-  zh: {
-    title: "全局搜索",
-    placeholder: "搜索任务、记忆、Cron（⌘K）",
-    hint: "支持跨任务 / 记忆 / Cron 搜索",
-    searching: "搜索中...",
-    empty: "没有匹配结果",
-    start: "输入关键词开始搜索",
-    tasks: "任务",
-    memories: "记忆",
-    cron: "Cron 任务",
-    owner: "负责人",
-    due: "截止",
-    nextRun: "下次运行",
-    schedule: "计划"
-  },
-  en: {
-    title: "Global Search",
-    placeholder: "Search tasks, memory, and cron (⌘K)",
-    hint: "Cross-search across Tasks, Memory, and Cron",
-    searching: "Searching...",
-    empty: "No matching results",
-    start: "Type to start searching",
-    tasks: "Tasks",
-    memories: "Memories",
-    cron: "Cron Jobs",
-    owner: "Owner",
-    due: "Due",
-    nextRun: "Next run",
-    schedule: "Schedule"
+  title: "全局搜索",
+  placeholder: "搜索任务、记忆、自动提醒（⌘K）",
+  hint: "支持跨任务 / 记忆 / 自动提醒搜索",
+  searching: "搜索中...",
+  empty: "没有匹配结果",
+  start: "输入关键词开始搜索",
+  tasks: "任务",
+  memories: "记忆",
+  cron: "自动提醒",
+  owner: "负责人",
+  due: "截止",
+  nextRun: "下次运行",
+  schedule: "执行频率"
+};
+
+function formatCronSchedule(schedule: string): string {
+  if (schedule === "0 8 * * *") {
+    return "每天早上 8:00";
   }
-} satisfies Record<
-  Language,
-  {
-    title: string;
-    placeholder: string;
-    hint: string;
-    searching: string;
-    empty: string;
-    start: string;
-    tasks: string;
-    memories: string;
-    cron: string;
-    owner: string;
-    due: string;
-    nextRun: string;
-    schedule: string;
+  if (schedule === "0 */6 * * *") {
+    return "每 6 小时一次";
   }
->;
+  if (schedule === "30 9 * * 1") {
+    return "每周一上午 9:30";
+  }
+  return "按计划自动运行";
+}
 
 function useDebouncedValue(value: string, delayMs = 120) {
   const [debounced, setDebounced] = useState(value);
@@ -116,7 +95,8 @@ function SearchPanel({
   data: SearchResult;
   isLoading: boolean;
 }) {
-  const t = copy[language];
+  void language;
+  const t = copy;
   const inputRef = useRef<HTMLInputElement>(null);
   const hasQuery = query.trim().length > 0;
 
@@ -152,7 +132,7 @@ function SearchPanel({
       ...data.cronJobs.map((job) => (
         <article key={`cron-${job._id ?? `${job.name}-${job.nextRun}`}`} className="rounded-lg border border-ice-100 bg-white p-3">
           <p className="font-medium text-ice-900">{job.name}</p>
-          <p className="mt-1 text-xs text-ice-600">{t.schedule}: {job.schedule} · {t.nextRun}: {job.nextRun}</p>
+          <p className="mt-1 text-xs text-ice-600">{t.schedule}: {formatCronSchedule(job.schedule)} · {t.nextRun}: {job.nextRun}</p>
         </article>
       ))
     ],

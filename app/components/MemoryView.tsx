@@ -13,33 +13,21 @@ type Memory = {
   createdAt: string;
 };
 
-const typeLabels: Record<Language, Record<Memory["type"], string>> = {
-  zh: {
-    memory: "记忆",
-    log: "日志"
-  },
-  en: {
-    memory: "Memory",
-    log: "Log"
-  }
+const typeLabels: Record<Memory["type"], string> = {
+  memory: "记忆",
+  log: "日志"
 };
 
 const copy = {
-  zh: {
-    title: "记忆库",
-    placeholder: "搜索记忆与日志"
-  },
-  en: {
-    title: "Memory Vault",
-    placeholder: "Search memory and logs"
-  }
-} satisfies Record<Language, { title: string; placeholder: string }>;
+  title: "我们的共同记忆",
+  placeholder: "搜索记忆与日志"
+};
 
 const memoryFallback = MEMORY_FALLBACK as Memory[];
 
 function MemoryPanel({ source, language }: { source: Memory[]; language: Language }) {
   const [search, setSearch] = useState("");
-  const t = copy[language];
+  const t = copy;
   const dateLocale = getDateLocale(language);
 
   const rows = useMemo(() => {
@@ -69,7 +57,7 @@ function MemoryPanel({ source, language }: { source: Memory[]; language: Languag
           <article key={`${entry.title}-${entry.createdAt}`} className="rounded-xl border border-ice-100 bg-white/85 p-4">
             <div className="mb-2 flex items-center justify-between">
               <h3 className="font-semibold text-ice-900">{entry.title}</h3>
-              <span className="rounded bg-ice-50 px-2 py-1 text-xs font-medium text-ice-700">{typeLabels[language][entry.type]}</span>
+              <span className="rounded bg-ice-50 px-2 py-1 text-xs font-medium text-ice-700">{typeLabels[entry.type]}</span>
             </div>
             <p className="text-sm text-ice-700">{entry.content}</p>
             <div className="mt-3 flex flex-wrap gap-2">
