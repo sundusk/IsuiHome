@@ -9,7 +9,7 @@ import { type Language } from "@/lib/i18n";
 
 const copy = {
   title: "任务指挥中心",
-  description: "这是小哥和 Isui 的共用工作台，面向任务推进、自动提醒、共同记忆和团队协作。"
+  description: "IsuiHome: 数字化任务指挥与监控中心。Isui、Jarvis、MC 作为执行代理协同处理任务推进、自动提醒与记忆整理。"
 };
 
 export default function HomePage() {

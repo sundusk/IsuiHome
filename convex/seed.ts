@@ -21,7 +21,7 @@ export const seedMissionControl = mutation({
       title: "搭建 IsuiHome 的数字化地基",
       status: "in_progress",
       priority: "high",
-      owner: "小哥",
+      owner: "Jarvis",
       dueDate: "2026-02-20",
       source: "HEARTBEAT.md"
     });
@@ -62,7 +62,7 @@ export const seedMissionControl = mutation({
       schedule: "0 */6 * * *",
       timezone: "Asia/Shanghai",
       nextRun: "2026-02-19T18:00:00+08:00",
-      owner: "小哥"
+      owner: "Jarvis"
     });
     await ctx.db.insert("cronJobs", {
       name: "每周角色状态巡检",
@@ -90,7 +90,7 @@ export const seedMissionControl = mutation({
       title: "任务协同更新",
       type: "log",
       tags: ["heartbeat", "ops"],
-      content: "今日待办已重新分配，Isui 与小哥协作节奏更顺畅。",
+      content: "今日待办已重新分配，Isui 与 Jarvis 协作节奏更顺畅。",
       createdAt: new Date().toISOString()
     });
 

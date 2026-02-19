@@ -23,7 +23,7 @@ const copy = {
   cronTitle: "自动提醒",
   upcomingTitle: "近期任务（14 天）",
   nextRun: "下次运行",
-  owner: "负责人",
+  owner: "执行代理",
   due: "截止",
   schedule: "执行频率"
 };

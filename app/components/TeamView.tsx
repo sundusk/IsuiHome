@@ -21,7 +21,8 @@ const statusLabels: Record<string, string> = {
 };
 
 const copy = {
-  title: "团队"
+  title: "代理团队",
+  subtitle: "IsuiHome 代理团队；下列成员负责执行任务与系统协同。"
 };
 
 function TeamPanel({ agents, language }: { agents: Agent[]; language: Language }) {
@@ -31,6 +32,7 @@ function TeamPanel({ agents, language }: { agents: Agent[]; language: Language }
   return (
     <section className="frost rounded-2xl p-5 shadow-frost transition-colors duration-300">
       <h2 className="mb-4 text-xl font-semibold text-ice-800">{t.title}</h2>
+      <p className="mb-4 text-sm text-ice-600">{t.subtitle}</p>
       <div className="grid gap-4 md:grid-cols-3">
         {agents.map((agent) => (
           <article key={agent.code} className="rounded-xl border border-ice-100 bg-white/85 p-4">

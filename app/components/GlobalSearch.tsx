@@ -52,7 +52,7 @@ const copy = {
   tasks: "任务",
   memories: "记忆",
   cron: "自动提醒",
-  owner: "负责人",
+  owner: "执行代理",
   due: "截止",
   nextRun: "下次运行",
   schedule: "执行频率"

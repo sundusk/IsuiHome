@@ -30,7 +30,7 @@ const priorityLabels: Record<Task["priority"], string> = {
 const copy = {
   title: "正在为你做的事",
   source: "来源",
-  owner: "负责人",
+  owner: "执行代理",
   priority: "优先级",
   due: "截止"
 };

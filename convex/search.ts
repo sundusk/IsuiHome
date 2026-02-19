@@ -1,6 +1,10 @@
 import { query } from "./_generated/server";
 import { v } from "convex/values";
 
+function normalizeTaskOwner(owner: string) {
+  return owner === "小哥" ? "Jarvis" : owner;
+}
+
 function mergeUniqueById<T extends { _id: unknown }>(...groups: T[][]): T[] {
   const rows = new Map<string, T>();
   for (const group of groups) {
@@ -40,7 +44,9 @@ export const global = query({
       ctx.db.query("cronJobs").withSearchIndex("search_owner", (q) => q.search("owner", text)).take(limit)
     ]);
 
-    const tasks = mergeUniqueById(taskTitle, taskOwner, taskSource).slice(0, limit);
+    const tasks = mergeUniqueById(taskTitle, taskOwner, taskSource)
+      .slice(0, limit)
+      .map((task) => ({ ...task, owner: normalizeTaskOwner(task.owner) }));
     const memories = mergeUniqueById(memoryTitle, memoryContent).slice(0, limit);
     const cronJobs = mergeUniqueById(cronName, cronSchedule, cronOwner).slice(0, limit);
 

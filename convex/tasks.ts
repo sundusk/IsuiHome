@@ -1,10 +1,15 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 
+function normalizeTaskOwner(owner: string) {
+  return owner === "小哥" ? "Jarvis" : owner;
+}
+
 export const list = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("tasks").collect();
+    const rows = await ctx.db.query("tasks").collect();
+    return rows.map((task) => ({ ...task, owner: normalizeTaskOwner(task.owner) }));
   }
 });
 
@@ -15,10 +20,12 @@ export const listUpcoming = query({
     const end = new Date(now);
     end.setDate(now.getDate() + args.days);
     const rows = await ctx.db.query("tasks").collect();
-    return rows.filter((task) => {
-      const due = new Date(task.dueDate);
-      return due >= now && due <= end;
-    });
+    return rows
+      .filter((task) => {
+        const due = new Date(task.dueDate);
+        return due >= now && due <= end;
+      })
+      .map((task) => ({ ...task, owner: normalizeTaskOwner(task.owner) }));
   }
 });
 
@@ -32,6 +39,6 @@ export const create = mutation({
     source: v.string()
   },
   handler: async (ctx, args) => {
-    return await ctx.db.insert("tasks", args);
+    return await ctx.db.insert("tasks", { ...args, owner: normalizeTaskOwner(args.owner) });
   }
 });
