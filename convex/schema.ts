@@ -4,7 +4,7 @@ import { v } from "convex/values";
 export default defineSchema({
   tasks: defineTable({
     title: v.string(),
-    status: v.union(v.literal("todo"), v.literal("in_progress"), v.literal("done")),
+    status: v.union(v.literal("todo"), v.literal("in_progress"), v.literal("done"), v.literal("archived")),
     priority: v.union(v.literal("low"), v.literal("medium"), v.literal("high")),
     owner: v.string(),
     dueDate: v.string(),
