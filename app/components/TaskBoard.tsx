@@ -58,6 +58,8 @@ const copy = {
   }
 } satisfies Record<Language, { title: string; source: string; owner: string; priority: string; due: string }>;
 
+const heartbeatFallback = HEARTBEAT_FALLBACK as Task[];
+
 function Board({ tasks, language }: { tasks: Task[]; language: Language }) {
   const t = copy[language];
   return (
@@ -94,13 +96,13 @@ function Board({ tasks, language }: { tasks: Task[]; language: Language }) {
 }
 
 function TaskBoardOnline({ language }: { language: Language }) {
-  const tasks = (useQuery("tasks:list" as never) as Task[] | undefined) ?? HEARTBEAT_FALLBACK;
+  const tasks = (useQuery("tasks:list" as never) as Task[] | undefined) ?? heartbeatFallback;
   return <Board tasks={tasks} language={language} />;
 }
 
 export function TaskBoard({ language }: { language: Language }) {
   if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
-    return <Board tasks={HEARTBEAT_FALLBACK} language={language} />;
+    return <Board tasks={heartbeatFallback} language={language} />;
   }
 
   return <TaskBoardOnline language={language} />;

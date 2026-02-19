@@ -35,6 +35,8 @@ const copy = {
   }
 } satisfies Record<Language, { title: string; placeholder: string }>;
 
+const memoryFallback = MEMORY_FALLBACK as Memory[];
+
 function MemoryPanel({ source, language }: { source: Memory[]; language: Language }) {
   const [search, setSearch] = useState("");
   const t = copy[language];
@@ -84,13 +86,13 @@ function MemoryPanel({ source, language }: { source: Memory[]; language: Languag
 }
 
 function MemoryViewOnline({ language }: { language: Language }) {
-  const source = (useQuery("memories:list" as never) as Memory[] | undefined) ?? MEMORY_FALLBACK;
+  const source = (useQuery("memories:list" as never) as Memory[] | undefined) ?? memoryFallback;
   return <MemoryPanel source={source} language={language} />;
 }
 
 export function MemoryView({ language }: { language: Language }) {
   if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
-    return <MemoryPanel source={MEMORY_FALLBACK} language={language} />;
+    return <MemoryPanel source={memoryFallback} language={language} />;
   }
 
   return <MemoryViewOnline language={language} />;

@@ -5,6 +5,7 @@ import { TaskBoard } from "./components/TaskBoard";
 import { CalendarView } from "./components/CalendarView";
 import { MemoryView } from "./components/MemoryView";
 import { TeamView } from "./components/TeamView";
+import { GlobalSearch } from "./components/GlobalSearch";
 import { DEFAULT_LANGUAGE, isLanguage, LANGUAGE_STORAGE_KEY, type Language } from "@/lib/i18n";
 
 const copy = {
@@ -53,6 +54,7 @@ export default function HomePage() {
       </header>
 
       <div className="grid gap-5">
+        <GlobalSearch language={language} />
         <TaskBoard language={language} />
         <CalendarView language={language} />
         <MemoryView language={language} />

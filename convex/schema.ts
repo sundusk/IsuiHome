@@ -11,7 +11,10 @@ export default defineSchema({
     source: v.string()
   })
     .index("by_status", ["status"])
-    .index("by_dueDate", ["dueDate"]),
+    .index("by_dueDate", ["dueDate"])
+    .searchIndex("search_title", { searchField: "title" })
+    .searchIndex("search_owner", { searchField: "owner" })
+    .searchIndex("search_source", { searchField: "source" }),
 
   cronJobs: defineTable({
     name: v.string(),
@@ -19,7 +22,11 @@ export default defineSchema({
     timezone: v.string(),
     nextRun: v.string(),
     owner: v.string()
-  }).index("by_nextRun", ["nextRun"]),
+  })
+    .index("by_nextRun", ["nextRun"])
+    .searchIndex("search_name", { searchField: "name" })
+    .searchIndex("search_schedule", { searchField: "schedule" })
+    .searchIndex("search_owner", { searchField: "owner" }),
 
   memories: defineTable({
     title: v.string(),
@@ -27,7 +34,10 @@ export default defineSchema({
     tags: v.array(v.string()),
     content: v.string(),
     createdAt: v.string()
-  }).index("by_createdAt", ["createdAt"]),
+  })
+    .index("by_createdAt", ["createdAt"])
+    .searchIndex("search_title", { searchField: "title" })
+    .searchIndex("search_content", { searchField: "content" }),
 
   agents: defineTable({
     code: v.string(),

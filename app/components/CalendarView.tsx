@@ -40,6 +40,9 @@ const copy = {
   { title: string; cronTitle: string; upcomingTitle: string; nextRun: string; owner: string; due: string }
 >;
 
+const cronFallback = CRON_FALLBACK as CronJob[];
+const heartbeatFallback = HEARTBEAT_FALLBACK as Task[];
+
 function CalendarPanel({ cron, tasks, language }: { cron: CronJob[]; tasks: Task[]; language: Language }) {
   const t = copy[language];
   const dateLocale = getDateLocale(language);
@@ -78,15 +81,15 @@ function CalendarPanel({ cron, tasks, language }: { cron: CronJob[]; tasks: Task
 }
 
 function CalendarViewOnline({ language }: { language: Language }) {
-  const cron = (useQuery("cron:list" as never) as CronJob[] | undefined) ?? CRON_FALLBACK;
-  const tasks = (useQuery("tasks:listUpcoming" as never, { days: 14 } as never) as Task[] | undefined) ?? HEARTBEAT_FALLBACK;
+  const cron = (useQuery("cron:list" as never) as CronJob[] | undefined) ?? cronFallback;
+  const tasks = (useQuery("tasks:listUpcoming" as never, { days: 14 } as never) as Task[] | undefined) ?? heartbeatFallback;
 
   return <CalendarPanel cron={cron} tasks={tasks} language={language} />;
 }
 
 export function CalendarView({ language }: { language: Language }) {
   if (!process.env.NEXT_PUBLIC_CONVEX_URL) {
-    return <CalendarPanel cron={CRON_FALLBACK} tasks={HEARTBEAT_FALLBACK} language={language} />;
+    return <CalendarPanel cron={cronFallback} tasks={heartbeatFallback} language={language} />;
   }
 
   return <CalendarViewOnline language={language} />;
