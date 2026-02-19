@@ -6,7 +6,7 @@ export const AGENTS = [
     status: "在线"
   },
   {
-    code: "小哥",
+    code: "Jarvis",
     role: "自动化执行伙伴",
     description: "负责执行工具链、巡检流程，并保持系统稳定运行。",
     status: "监控中"
