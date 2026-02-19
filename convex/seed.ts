@@ -15,8 +15,8 @@ export const seedMissionControl = mutation({
     await ctx.db.insert("cronJobs", {
       name: "Daily Heartbeat Digest",
       schedule: "0 8 * * *",
-      timezone: "America/Los_Angeles",
-      nextRun: "2026-02-20T08:00:00-08:00",
+      timezone: "Asia/Shanghai",
+      nextRun: "2026-02-20T08:00:00+08:00",
       owner: "Isui"
     });
 

@@ -58,22 +58,22 @@ export const CRON_FALLBACK = [
   {
     name: "Daily Heartbeat Digest",
     schedule: "0 8 * * *",
-    timezone: "America/Los_Angeles",
-    nextRun: "2026-02-20T08:00:00-08:00",
+    timezone: "Asia/Shanghai",
+    nextRun: "2026-02-20T08:00:00+08:00",
     owner: "Isui"
   },
   {
     name: "Memory Compaction",
     schedule: "0 */6 * * *",
-    timezone: "America/Los_Angeles",
-    nextRun: "2026-02-19T18:00:00-08:00",
+    timezone: "Asia/Shanghai",
+    nextRun: "2026-02-19T18:00:00+08:00",
     owner: "Jarvis"
   },
   {
     name: "Agent Role Integrity Check",
     schedule: "30 9 * * 1",
-    timezone: "America/Los_Angeles",
-    nextRun: "2026-02-23T09:30:00-08:00",
+    timezone: "Asia/Shanghai",
+    nextRun: "2026-02-23T09:30:00+08:00",
     owner: "MC"
   }
 ];
@@ -84,20 +84,20 @@ export const MEMORY_FALLBACK = [
     type: "log",
     tags: ["convex", "setup"],
     content: "Environment variable NEXT_PUBLIC_CONVEX_URL prepared for production wiring.",
-    createdAt: "2026-02-19T10:15:00-08:00"
+    createdAt: "2026-02-19T10:15:00+08:00"
   },
   {
     title: "Mission briefing approved",
     type: "memory",
     tags: ["mission-control", "planning"],
     content: "Core surfaces locked: Tasks Board, Calendar, Memory, and Team.",
-    createdAt: "2026-02-19T10:30:00-08:00"
+    createdAt: "2026-02-19T10:30:00+08:00"
   },
   {
     title: "Heartbeat refresh",
     type: "log",
     tags: ["heartbeat", "ops"],
     content: "Pending task ownership redistributed between Isui and Jarvis.",
-    createdAt: "2026-02-19T11:00:00-08:00"
+    createdAt: "2026-02-19T11:00:00+08:00"
   }
 ];
